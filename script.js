@@ -1,76 +1,77 @@
-let calculo = document.querySelector("#display");
-let operador = "";
-let parar = false;
+var input = document.querySelector("#display");
+var operador = "";
+var parar = false;
 
+//function para limpar a calculadora
 function limpar() {
-  calculo.value = "";
+  input.value = "";
   document.querySelector("#history").innerHTML = "";
   operador = ""
 }
+//function dos numeros
 
-//function para os numeros
-function add_numero(string) {
+function apt_numeros(string) {
   if (!parar) {
-    if (string === '.' && calculo.value.indexOf(".") === -1 || string !== '.') {
-      calculo.value = calculo.value + string;
-      history.value = calculo.value;
+    if (string === '.' && input.value.indexOf(".") === -1 || string !== '.') {
+      input.value = input.value + string;
+      history.value = input.value;
     }
   } else {
-    if (string === '.' && calculo.value.indexOf(".") === -1 || string !== '.') {
-      calculo.value = "";
+    if (string === '.' && input.value.indexOf(".") === -1 || string !== '.') {
+      input.value = "";
       parar = false;
       document.querySelector("#history").innerHTML = "";
       operador = "";
 
-      calculo.value = calculo.value + string;
+      input.value = input.value + string;
     }
   }
 }
 //function para os operadores
-function add_operador(op) {
-  if (calculo.value == "") {
-    calculo.value = "0";
+function apt_operador(op) {
+  if (input.value == "") {
+    input.value = "0";
   }
 
   if (operador == "") {
     operador = op;
-    calculo.value = calculo.value + op;
+    input.value = input.value + op;
   } else {
     total()
-    calculo.value = calculo.value + op;
+    input.value = input.value + op;
     operador = op;
     parar=false;
   }
 }
 
-//function para os resultados
+//function para o resultado 
 function total() {
   if (!parar) {
-    numeros = calculo.value.split(operador);
+    numeros = input.value.split(operador);
 
     if (numeros[1] == "") {
-      calculo.value = calculo.value + '0';
+      input.value = input.value + '0';
       numeros[1] = 0;
 
     }
 
-    document.querySelector("#history").innerHTML = calculo.value;
+    document.querySelector("#history").innerHTML = input.value;
 
     switch (operador) {
       case "+":
-        calculo.value = Number(numeros[0]) + Number(numeros[1]);
+        input.value = Number(numeros[0]) + Number(numeros[1]);
         break;
 
       case "-":
-        calculo.value = numeros[0] - numeros[1];
+        input.value = numeros[0] - numeros[1];
         break;
 
       case "*":
-        calculo.value = numeros[0] * numeros[1];
+        input.value = numeros[0] * numeros[1];
         break;
 
       case "/":
-        calculo.value = numeros[0] / numeros[1];
+        input.value = numeros[0] / numeros[1];
         break;
     }
 
